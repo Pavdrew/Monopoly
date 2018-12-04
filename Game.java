@@ -19,8 +19,6 @@ public class Game {
 	}
 
 	public void run() {
-		boolean playAgain = false;
-		while (playAgain) {
 			/*
 			 * Game Starts Print Board Prompt for menu for First player (roll, trade/sell, mortgage, buid houses)
 			 * 	if(roll)
@@ -46,8 +44,6 @@ public class Game {
 			 * 	
 			 	*/ 
 			printBoard();
-
-		}
 	}
 
 	private void printBoard() {
