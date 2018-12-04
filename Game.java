@@ -19,6 +19,8 @@ public class Game {
 	}
 
 	public void run() {
+		boolean playAgain = false;
+		while (playAgain) {
 			/*
 			 * Game Starts Print Board Prompt for menu for First player (roll, trade/sell, mortgage, buid houses)
 			 * 	if(roll)
@@ -44,13 +46,14 @@ public class Game {
 			 * 	
 			 	*/ 
 			printBoard();
+
+		}
 	}
 
 	private void printBoard() {
 		GameBoard board = new GameBoard();
-		board.init();
 		board.gameBoard();
-		}
+	}
 
 	private void setUpPlayers() throws IOException {
 		boolean[] takenPiece = new boolean[8];
@@ -112,17 +115,21 @@ public class Game {
 			}
 			
 		}
-		// Set up player order (roll dice)
-		playerTurn();
+		
+		randomizeOrder(players);
 
 	}
 
-	private void playerTurn() {
-		Player[] playersTurn = new Player[players.length];
-		printBoard();
-		playerMenu();
+	private Player[] randomizeOrder(Player[] players) {
+		Random random = new Random();
+		for (int i = 0; i < players.length; i++) {
+			int randomPosition = random.nextInt(players.length);
+			Player temp = players[i];
+			players[i] = players[randomPosition];
+			players[randomPosition] = temp;
+		}
+		return players;
 	}
-	
 	private void playerMenu() {
 		List<String> menuItems = new ArrayList<>();
 		switch(selection) {
