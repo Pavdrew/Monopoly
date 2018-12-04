@@ -126,13 +126,43 @@ public class Game {
 		}
 		return players;
 	}
+	
 	private void playerMenu() {
 		List<String> menuItems = new ArrayList<>();
+		String[] menuItemsArray = new String[menuItems.size()];
+		menuItemsArray = menuItems.toArray(menuItemsArray);
+		int selection = ConsoleIO.promptForMenuSelection("Select an option from the menu: ", menuItemsArray, false);
 		switch(selection) {
 		case 1: 
-			menuItems.add("Case 1");
+			menuItems.add("End turn");
 			break;
 		case 2:
+			if(players[i].money < 0) {
+				menuItems.remove("End turn");
+			}
+			break;
+		case 3: 
+			menuItems.add("Buy & Sell Houses");
+			break;
+		case 4:
+			menuItems.add("Mortage Property");
+			break;
+		case 5: 
+			menuItems.add("Trade");
+			break;
+		case 6: 
+			menuItems.add("Forfeit to Bank");
+			break;
+		case 7: 
+			menuItems.remove("Forfeit to Bank");
+			break;
+		case 8: 
+			menuItems.add("Forfeit to Player");
+			break;
+		case 9: 
+			if(players) {
+				menuItems.remove("Forfeit to Player");
+			}
 			break;
 			
 		}
