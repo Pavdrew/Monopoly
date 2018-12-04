@@ -19,8 +19,6 @@ public class Game {
 	}
 
 	public void run() {
-		boolean playAgain = false;
-		while (playAgain) {
 			/*
 			 * Game Starts Print Board Prompt for menu for First player (roll, trade/sell, mortgage, buid houses)
 			 * 	if(roll)
@@ -46,14 +44,13 @@ public class Game {
 			 * 	
 			 	*/ 
 			printBoard();
-
-		}
 	}
 
 	private void printBoard() {
 		GameBoard board = new GameBoard();
+		board.init();
 		board.gameBoard();
-	}
+		}
 
 	private void setUpPlayers() throws IOException {
 		boolean[] takenPiece = new boolean[8];
