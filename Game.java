@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ConsoleIO;
-
+//test
 public class Game {
 	Player[] players;
 	String[] pieces = { "TOPHAT", "BATTLESHIP", "DINOSAUR", "THIMBLE", "BOOT", "DOG", "CANNON", "RACECAR" };
