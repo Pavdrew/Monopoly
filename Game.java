@@ -22,19 +22,37 @@ public class Game {
 	}
 
 	public void run() {
-		
+		printCurrentPlayer();
+		printBoard();
+		rollDice();
 	}
-			printBoard();
+			
+
+	
+private void printCurrentPlayer() {
+		System.out.println(players[turn].name + "'s turn");
+		System.out.println("Piece: " + players[turn].piece);
+		System.out.println("Cash: " + players[turn].money);
 
 	}
-
 	
 	private void printBoard1() {
 		GameBoard board = new GameBoard();
 		board.init();
 		board.gameBoard();
 	}
+	
+private void rollDice() {
+		Die die = new Die();
+		int playerRoll = die.roll();
+		System.out.println("You rolled a " + playerRoll);
 
+		while (die.doubleRoll == true) {
+			System.out.println("It was a Double");
+			playerRoll = die.roll();
+		}
+
+	}
 	
 	private void setUpPlayers() throws IOException {
 		boolean[] takenPiece = new boolean[8];
@@ -96,10 +114,23 @@ public class Game {
 			}
 			
 		}
+		randomizeOrder(players);
 		playerTurn();
 
 	}
 
+	private Player[] randomizeOrder(Player[] players) {
+		Random random = new Random();
+
+		for (int i = 0; i < players.length; i++) {
+			int randomPosition = random.nextInt(players.length);
+			Player temp = players[i];
+			players[i] = players[randomPosition];
+			players[randomPosition] = temp;
+		}
+		return players;
+	}
+	
 	private void playerTurn() {
 		Player[] playersTurn = new Player[players.length];
 		printBoard1();
