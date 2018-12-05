@@ -1,7 +1,7 @@
 package alex.andrew.monoplyproject;
 
 public class PropertyDeeds {
-	
+	//each index lines up with the corrisponding propety cost (0's are either community chest, chance, go, free parking, just visting, and go to jail.)
 	Integer[] arrayPropertiesCost = {0, 60, 0, 60, 200, 200, 100, 0, 100, 120, 0, 140, 150, 140, 160, 200, 180, 0, 180, 200, 0, 220, 0, 220, 240, 200, 260, 260, 150, 280, 0, 300, 300, 0, 320, 200, 0, 350, 100, 400 };
 	
 	public void displayDeed(int userLocation) {
