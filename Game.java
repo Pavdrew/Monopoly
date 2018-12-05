@@ -3,9 +3,8 @@ package alex.andrew.monoplyproject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import interfaces.ConsoleIO;
-//peepeebutt
+
 public class Game {
 	Player[] players;
 	String[] pieces = { "TOPHAT", "BATTLESHIP", "DINOSAUR", "THIMBLE", "BOOT", "DOG", "CANNON", "RACECAR" };
@@ -126,13 +125,43 @@ public class Game {
 		}
 		return players;
 	}
+	
 	private void playerMenu() {
 		List<String> menuItems = new ArrayList<>();
+		String[] menuItemsArray = new String[menuItems.size()];
+		menuItemsArray = menuItems.toArray(menuItemsArray);
+		int selection = ConsoleIO.promptForMenuSelection("Select an option from the menu: ", menuItemsArray, false);
 		switch(selection) {
 		case 1: 
-			menuItems.add("Case 1");
+			menuItems.add("End turn");
 			break;
 		case 2:
+			if(players[i].money < 0) {
+				menuItems.remove("End turn");
+			}
+			break;
+		case 3: 
+			menuItems.add("Buy & Sell Houses");
+			break;
+		case 4:
+			menuItems.add("Mortage Property");
+			break;
+		case 5: 
+			menuItems.add("Trade");
+			break;
+		case 6: 
+			menuItems.add("Forfeit to Bank");
+			break;
+		case 7: 
+			menuItems.remove("Forfeit to Bank");
+			break;
+		case 8: 
+			menuItems.add("Forfeit to Player");
+			break;
+		case 9: 
+			if(players) {
+				menuItems.remove("Forfeit to Player");
+			}
 			break;
 			
 		}
@@ -148,5 +177,61 @@ public class Game {
 			isTaken = false;
 		}
 		return isTaken;
+	}
+	private void auction() throws IOException {
+		int[] bid = new int[players.length];
+		boolean stillAuctioning = true;
+		while(stillAuctioning) {
+			
+		for(int i=0;i<players.length;i++) {
+			bid[i] = ConsoleUI.promptForInt("Select an amount " + players[i] + " would like to bid for *property name*", 0, players[i].money);
+		}
+		
+		Arrays.sort(bid);
+		
+		stillAuctioning = endAuction(bid);
+		if(stillAuctioning = false) {
+			break;
+		}
+		stillAuctioning = ConsoleUI.promptForBool("Is it alright if *property* goes to *player* for *bid*?", "no", "yes");
+		}
+		transaction(bid[players.length]);
+	}
+
+	private void transaction(int bid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean endAuction(int[] bid) {
+		boolean auctionContinues = true;
+		int biggerBid = 0;
+		for(int i=0;i<players.length;i++) {
+			if(bid[4] > players[i].money) {
+				biggerBid++;
+			}
+		}
+		if (biggerBid >= 3){
+			auctionContinues = false;
+		}
+		else {
+			auctionContinues = true;
+		}
+		return auctionContinues;
+	}
+	private void sellTo() throws IOException {
+		
+		//Select property
+		
+		int buyer = ConsoleUI.promptForInt("What player would you like to sell to?", 0, players.length);
+		if(turn == buyer) {
+			System.out.println("You cannot sell to yourself");
+		}
+		else {
+			int price = ConsoleUI.promptForInt("What amount would you like to sell the property for?", 0, 999999);
+			if(players[buyer].money > price) {
+				ConsoleUI.promptForBool("Does the buyer accept this price?", "yes", "no");
+			}
+		}
 	}
 }
