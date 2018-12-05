@@ -2,54 +2,40 @@ package alex.andrew.monoplyproject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import interfaces.ConsoleIO;
 
 public class Game {
+	int numPlayers = 0;
+	int turn = 0;
 	Player[] players;
 	String[] pieces = { "TOPHAT", "BATTLESHIP", "DINOSAUR", "THIMBLE", "BOOT", "DOG", "CANNON", "RACECAR" };
 
 	public void init() throws IOException {
 		System.out.println("Welcome to Monopoly");
-		int numPlayers = ConsoleIO.promptForInt("How many Players are going to play", 2, 8);
+		numPlayers = ConsoleIO.promptForInt("How many Players are going to play", 2, 8);
 		players = new Player[numPlayers];
 		setUpPlayers();
 
 	}
 
 	public void run() {
-			/*
-			 * Game Starts Print Board Prompt for menu for First player (roll, trade/sell, mortgage, buid houses)
-			 * 	if(roll)
-			 * 		add roll amount to player location
-			 * 			if(property is unowned)
-			 * 				player can buy property or it goes up for auction
-			 * 			if(property is owned)
-			 * 				player pays rent to the owner of the property
-			 * 			if(player lands on cc or chance)
-			 * 				randomize cc or chacne card and apply to player
-			 * 			if(pass GO)
-			 * 				give player $200	
-			 * 	if(trade/sell)
-			 * 		Trade: switch properties with players
-			 * 		Sell: sell a property to other player(amount is dictated by the player trying to sell)
-			 * 	if(mortgage)
-			 * 		Sell property to bank for half price
-			 * 	if(build)
-			 * 		if(there is a monopoly on properties)
-			 * 			buy a house
-			 * 			if(there are 4 houses on a property)
-			 * 				player can buy a house
-			 * 	
-			 	*/ 
+		
+	}
 			printBoard();
+
 	}
 
-	private void printBoard() {
+	
+	private void printBoard1() {
 		GameBoard board = new GameBoard();
+		board.init();
 		board.gameBoard();
 	}
 
+	
 	private void setUpPlayers() throws IOException {
 		boolean[] takenPiece = new boolean[8];
 		for (int i = 0; i < takenPiece.length; i++) {
@@ -110,20 +96,18 @@ public class Game {
 			}
 			
 		}
-		
-		randomizeOrder(players);
+		playerTurn();
 
 	}
 
-	private Player[] randomizeOrder(Player[] players) {
-		Random random = new Random();
-		for (int i = 0; i < players.length; i++) {
-			int randomPosition = random.nextInt(players.length);
-			Player temp = players[i];
-			players[i] = players[randomPosition];
-			players[randomPosition] = temp;
-		}
-		return players;
+	private void playerTurn() {
+		Player[] playersTurn = new Player[players.length];
+		printBoard1();
+		playerMenu();
+	}
+	
+	private void changeTurn() {
+		
 	}
 	
 	private void playerMenu() {
@@ -134,20 +118,24 @@ public class Game {
 		switch(selection) {
 		case 1: 
 			menuItems.add("End turn");
+			move();
 			break;
 		case 2:
-			if(players[i].money < 0) {
+			if(players[turn].money < 0) {
 				menuItems.remove("End turn");
 			}
 			break;
 		case 3: 
 			menuItems.add("Buy & Sell Houses");
+			construction();
 			break;
 		case 4:
 			menuItems.add("Mortage Property");
+			mortage();
 			break;
 		case 5: 
 			menuItems.add("Trade");
+			sellTo();
 			break;
 		case 6: 
 			menuItems.add("Forfeit to Bank");
@@ -163,11 +151,39 @@ public class Game {
 				menuItems.remove("Forfeit to Player");
 			}
 			break;
+		default:
+			throw new IllegalArgumentException("Invalid Number"); 
 			
 		}
 		String[] menu = menuItems.toArray(new String[menuItems.size()]);
 	}
 
+	private void buyAuctionMenu() {
+		String[] buyAuctionArray = {"Purchase Property", "Auction"};
+		int selection = ConsoleIO.promptForMenuSelection("Choose an option ", buyAuctionArray, false);
+		switch(selection) {
+		case 1:
+			purchaseProperty();
+			break;
+		case 2:
+			auction();
+			break;
+		throw new IllegalArgumentException("Invalid Number");
+		}
+	}
+	
+	private void move() {
+		
+	}
+	
+	private void construction() {
+		
+	}
+	
+	private void mortage() {
+		
+	}
+	
 	private boolean checkPiece(int selection, boolean[] takenPiece) {
 		boolean isTaken = true;
 		if (takenPiece[selection] != false) {
@@ -178,13 +194,14 @@ public class Game {
 		}
 		return isTaken;
 	}
+	
 	private void auction() throws IOException {
 		int[] bid = new int[players.length];
 		boolean stillAuctioning = true;
 		while(stillAuctioning) {
 			
 		for(int i=0;i<players.length;i++) {
-			bid[i] = ConsoleUI.promptForInt("Select an amount " + players[i] + " would like to bid for *property name*", 0, players[i].money);
+			bid[i] = ConsoleIO.promptForInt("Select an amount " + players[i] + " would like to bid for *property name*", 0, players[i].money);
 		}
 		
 		Arrays.sort(bid);
@@ -193,16 +210,15 @@ public class Game {
 		if(stillAuctioning = false) {
 			break;
 		}
-		stillAuctioning = ConsoleUI.promptForBool("Is it alright if *property* goes to *player* for *bid*?", "no", "yes");
+		stillAuctioning = ConsoleIO.promptForBool("Is it alright if *property* goes to *player* for *bid*?", "no", "yes");
 		}
 		transaction(bid[players.length]);
 	}
-
+	
 	private void transaction(int bid) {
-		// TODO Auto-generated method stub
 		
 	}
-
+	
 	private boolean endAuction(int[] bid) {
 		boolean auctionContinues = true;
 		int biggerBid = 0;
@@ -219,19 +235,22 @@ public class Game {
 		}
 		return auctionContinues;
 	}
+	
 	private void sellTo() throws IOException {
 		
-		//Select property
-		
-		int buyer = ConsoleUI.promptForInt("What player would you like to sell to?", 0, players.length);
+		int buyer = ConsoleIO.promptForInt("What player would you like to sell to?", 0, players.length);
 		if(turn == buyer) {
 			System.out.println("You cannot sell to yourself");
 		}
 		else {
-			int price = ConsoleUI.promptForInt("What amount would you like to sell the property for?", 0, 999999);
+			int price = ConsoleIO.promptForInt("What amount would you like to sell the property for?", 0, 999999);
 			if(players[buyer].money > price) {
-				ConsoleUI.promptForBool("Does the buyer accept this price?", "yes", "no");
+				ConsoleIO.promptForBool("Does the buyer accept this price?", "yes", "no");
 			}
 		}
 	}
+
+	private void purchaseProperty() {
 }
+
+
