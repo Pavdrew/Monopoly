@@ -282,6 +282,13 @@ private void rollDice() {
 	}
 
 	private void purchaseProperty() {
+		PropertyDeeds propertyCost = new PropertyDeeds();
+		Player player = new Player();
+		int propertySquare = player.location;
+		Integer propertyCost1 = propertyCost.arrayPropertiesCost[propertySquare];
+		player.money -= propertyCost1;
+}
+	
 }
 
 
