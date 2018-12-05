@@ -129,7 +129,7 @@ public class GameBoard {
 			System.out.println("|" +sqs[51]+  "|                                                                                                                                      |" +sqs[79]+  "|");
 			System.out.println("|" +sqs[91]+  "|                                                                                                                                      |" +sqs[119]+ "|");
 			System.out.println("|" +sqs[131]+ "|                                                                                                                                      |" +sqs[159]+ "|");
-			System.out.println("|     $160     |                                                                                                                                      |     $400     |");
+			System.out.println("|     $140     |                                                                                                                                      |     $400     |");
 			System.out.println("|______________|______________________________________________________________________________________________________________________________________|______________|");
 			System.out.println("|" +own[10]+  "|"  +own[9]+  "|"  +own[8]+  "|" +own[7]+   "|" +own[6]+   "|" +own[5]+   "|"  +own[4]+  "|"   +own[3]+ "|"   +own[2]+ "|"  +own[1]+  "|"  +own[0]+  "|");
 			System.out.println("|    Free      |  Connecticut |   Vermont    |    Chance    |   Oriental   |   Reading    |    Income    |    Baltic    |   Community  | Mediterranean| Collect $200 |");
