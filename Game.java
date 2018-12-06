@@ -141,52 +141,76 @@ private void rollDice() {
 		
 	}
 	
-	private void playerMenu() {
+	private void playerMenu() throws IOException {
+		int playerLocation = players[turn].location;
+		boolean playerReRoll = false;
 		List<String> menuItems = new ArrayList<>();
+		menuItems.add("Roll Again");
+		menuItems.add("End turn");
+		menuItems.add("Buy & Sell Houses");
+		menuItems.add("Mortage Property");
+		menuItems.add("Trade");
+		menuItems.add("Forfeit to Bank");
+		menuItems.add("Forfeit to Player");
 		String[] menuItemsArray = new String[menuItems.size()];
 		menuItemsArray = menuItems.toArray(menuItemsArray);
-		int selection = ConsoleIO.promptForMenuSelection("Select an option from the menu: ", menuItemsArray, false);
+		int selection = ConsoleIO.promptForMenuSelection("Make your menu selection ", menuItemsArray, false);
 		switch(selection) {
-		case 1: 
-			menuItems.add("End turn");
-			move();
+		case 1:
+			if(playerReRoll == true) {
+				
+			} else {
+				System.out.println("You have not rolled doubles, you must end your turn.");
+			}
 			break;
-		case 2:
+
+		case 2: 
 			if(players[turn].money < 0) {
-				menuItems.remove("End turn");
+				System.out.println("You have negative balance you cannot end your turn.");
+			} 
+			else if(playerReRoll == true) {
+				System.out.println("You rolled doubles, you must r-roll.");
+			} else {
+				
 			}
 			break;
 		case 3: 
-			menuItems.add("Buy & Sell Houses");
 			construction();
 			break;
 		case 4:
-			menuItems.add("Mortage Property");
 			mortage();
 			break;
 		case 5: 
-			menuItems.add("Trade");
 			sellTo();
 			break;
-		case 6: 
-			menuItems.add("Forfeit to Bank");
-			break;
-		case 7: 
-			menuItems.remove("Forfeit to Bank");
-			break;
-		case 8: 
-			menuItems.add("Forfeit to Player");
-			break;
-		case 9: 
-			if(players) {
-				menuItems.remove("Forfeit to Player");
+		case 6:
+			if(players[playerLocation].owner != null) {
+				System.out.println("You cannot forfeit to a bank if you are in debt to a player");
+			} else {
+				forfeitToBank();
 			}
 			break;
+		case 7: 
+			if(players[playerLocation].owner == null) {
+				System.out.println("You cannot forfeit to a bank if you are not in debt to a player.");
+			} else {
+				forfeitToPlayer();
+			}
+			break;
+
 		default:
 			throw new IllegalArgumentException("Invalid Number"); 
 			
 		}
-		String[] menu = menuItems.toArray(new String[menuItems.size()]);
+		
+	}
+
+	private void forfeitToPlayer() {
+		//give all cash and properties to the player's spot they landed on
+	}
+
+	private void forfeitToBank() {
+		//remove player from array and set all their properties to unowned
 	}
 
 	private void buyAuctionMenu() {
