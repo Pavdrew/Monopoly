@@ -312,7 +312,140 @@ private void rollDice() {
 		Integer propertyCost1 = propertyCost.arrayPropertiesCost[propertySquare];
 		player.money -= propertyCost1;
 }
-	
+	public void drawChance(int randomNumber) {
+		Square[] sqr = new Square[160];
+		if (randomNumber == 0) {
+			System.out.println("Advance to Go");
+			sqr[0] = sqr[players[turn].location];
+		}
+		if (randomNumber == 1) {
+			System.out.println("Pay poor Tax $15");
+			players[turn].money -= 15;
+		}
+		if (randomNumber == 2) {
+			System.out.println("You have been elected Chairman of the Board. Pay each Player $50");
+			for (int i = 0; i < players.length; i++) {
+				players[turn].money += 50;
+			}
+			players[turn].money -= 100;
+		}
+		if (randomNumber == 3) {
+			System.out.println("Advance to St. Charles Place");
+			sqr[11] = sqr[players[turn].location];
+		}
+		if (randomNumber == 4) {
+			System.out.println("Advance to Illinois Ave");
+			sqr[24] = sqr[players[turn].location];
+		}
+		if (randomNumber == 5) {
+			System.out.println(
+					"Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total 10 times the amount thrown");
+		}
+		if (randomNumber == 6) {
+			System.out.println(
+					"Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank");
+		}
+		if (randomNumber == 7) {
+			System.out.println("Bank pays you dividend of $50");
+			players[turn].money += 50;
+		}
+		if (randomNumber == 8) {
+			System.out.println("Get out of Jail Free");
+		}
+		if (randomNumber == 9) {
+			System.out.println("Go Back Three 3 Spaces");
+			sqr[players[turn].location] = sqr[players[turn].location - 3];
+		}
+		if (randomNumber == 10) {
+			System.out.println("Go to Jail");
+			sqr[30] = sqr[players[turn].location];
+		}
+		if (randomNumber == 11) {
+			System.out.println(
+					"Make general repairs on all your property: For each house pay $25, For each hotel pay $100");
+		}
+		if (randomNumber == 12) {
+			System.out.println("Take a trip to Reading Railroad");
+			sqr[5] = sqr[players[turn].location];
+		}
+		if (randomNumber == 13) {
+			System.out.println("Take a walk on the Boardwalk. Advance token to Boardwalk");
+			sqr[39] = sqr[players[turn].location];
+		}
+		if (randomNumber == 14) {
+			System.out.println("Your building and loan matures. Receive $150");
+			players[turn].money += 150;
+		}
+	}
+
+	public void drawCC(int randomNumber) {
+		Square[] sqr = new Square[160];
+		if (randomNumber == 0) {
+			System.out.println("Advance to Go");
+			sqr[0] = sqr[players[turn].location];
+		}
+		if (randomNumber == 1) {
+			System.out.println("Bank error in your favor. Collect $200");
+			players[turn].money += 200;
+		}
+		if (randomNumber == 2) {
+			System.out.println("Doctor's fees. Pay $50");
+			players[turn].money += 50;
+		}
+		if (randomNumber == 3) {
+			System.out.println("From sale of stock you get $50");
+			players[turn].money += 50;
+		}
+		if (randomNumber == 4) {
+			System.out.println("Grand Opera Night  Collect $50 from every player for opening night seats");
+			for (int i = 0; i < players.length; i++) {
+				players[i].money -= 50;
+			}
+			players[turn].money += 100 * players.length;
+		}
+		if (randomNumber == 5) {
+			System.out.println("Holiday Fund matures. Receive $100");
+			players[turn].money += 100;
+		}
+		if (randomNumber == 6) {
+			System.out.println("Income tax refund. Collect $20");
+			players[turn].money += 20;
+		}
+		if (randomNumber == 7) {
+			System.out.println("It's your birthday. Collect $10 from every player");
+			for (int i = 0; i < players.length; i++) {
+				players[i].money -= 10;
+			}
+			players[turn].money += 20 * players.length;
+		}
+		if (randomNumber == 8) {
+			System.out.println("Life insurance matures. Collect $100 ");
+			players[turn].money += 100;
+		}
+		if (randomNumber == 9) {
+			System.out.println("Hospital Fees. Pay $50");
+			players[turn].money -= 50;
+		}
+		if (randomNumber == 10) {
+			System.out.println("School fees Pay $50");
+			players[turn].money -= 50;
+		}
+		if (randomNumber == 11) {
+			System.out.println("Receive $25 consultancy fee");
+			players[turn].money += 25;
+		}
+		if (randomNumber == 12) {
+			System.out.println("You are assessed for street repairs: Pay $40 per house and $115 per hotel you own");
+		}
+		if (randomNumber == 13) {
+			System.out.println("You have won second prize in a beauty contest. Collect $10");
+			players[turn].money += 10;
+		}
+		if (randomNumber == 14) {
+			System.out.println("You inherit $100");
+			players[turn].money += 100;
+		}
+	}
 }
 
 
