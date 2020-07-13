@@ -28,7 +28,18 @@ public class GameBoard {
 			}
 			return spot;
 		}
-
+	
+	public void randomChance(){
+			Game gm = new Game();
+			Random random = new Random();
+			gm.drawChance(random.nextInt(15));
+		}
+		
+		public void randomCC(){
+			Game gm = new Game();
+			Random random = new Random();
+			gm.drawCC(random.nextInt(15));
+		}
 		public void gameBoard() {
 			System.out.println("______________________________________________________________________________________________________________________________________________________________________");
 			System.out.println("|" +own[20]+  "|"  +own[21]+ "|"  +own[22]+ "|" +own[23]+  "|" +own[24]+  "|" +own[25]+  "|"  +own[26]+ "|"  +own[27]+ "|"  +own[28]+ "|"  +own[29]+ "|"  +own[30]+ "|");
